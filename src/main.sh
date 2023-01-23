@@ -160,7 +160,7 @@ function installAWSIamAuthenticator {
     echo "Successfully moved aws-iam-authenticator"
 }
 
-function installKubectl{
+function installKubectl {
     url="https://dl.k8s.io/release/v1.24.1/bin/linux/amd64/kubectl"
     echo "Downloading kubectl"
     curl -s -S -L -o /tmp/kubectl ${url}
