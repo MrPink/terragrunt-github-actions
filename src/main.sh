@@ -160,6 +160,19 @@ function installAWSIamAuthenticator {
     echo "Successfully moved aws-iam-authenticator"
 }
 
+function installKubectl{
+    url="https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    echo "Downloading kubectl"
+    curl -s -S -L -o /tmp/kubectl ${url}
+    chmod +x /tmp/kubectl
+    mv /tmp/kubectl /usr/local/bin/kubectl
+    if [ "${?}" -ne 0 ]; then
+      echo "Failed to move kubectl"
+      exit 1
+    fi
+    echo "Successfully moved Kubectl"
+}
+
 function main {
   # Source the other files to gain access to their functions
   scriptDir=$(dirname ${0})
@@ -176,52 +189,45 @@ function main {
   parseInputs
   configureCLICredentials
   installTerraform
+  installAWSIamAuthenticator
+  installKubectl
   cd ${GITHUB_WORKSPACE}/${tfWorkingDir}
 
   case "${tfSubcommand}" in
     fmt)
       installTerragrunt
-      installAWSIamAuthenticator
       terragruntFmt ${*}
       ;;
     init)
       installTerragrunt
-      installAWSIamAuthenticator
       terragruntInit ${*}
       ;;
     validate)
       installTerragrunt
-      installAWSIamAuthenticator
       terragruntValidate ${*}
       ;;
     plan)
       installTerragrunt
-      installAWSIamAuthenticator
       terragruntPlan ${*}
       ;;
     apply)
       installTerragrunt
-      installAWSIamAuthenticator
       terragruntApply ${*}
       ;;
     output)
       installTerragrunt
-      installAWSIamAuthenticator
       terragruntOutput ${*}
       ;;
     import)
       installTerragrunt
-      installAWSIamAuthenticator
       terragruntImport ${*}
       ;;
     taint)
       installTerragrunt
-      installAWSIamAuthenticator
       terragruntTaint ${*}
       ;;
     destroy)
       installTerragrunt
-      installAWSIamAuthenticator
       terragruntDestroy ${*}
       ;;
     *)
