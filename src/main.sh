@@ -161,7 +161,7 @@ function installAWSIamAuthenticator {
 }
 
 function installKubectl{
-    url="https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    url="https://dl.k8s.io/release/v1.24.1/bin/linux/amd64/kubectl"
     echo "Downloading kubectl"
     curl -s -S -L -o /tmp/kubectl ${url}
     chmod +x /tmp/kubectl
