@@ -148,7 +148,7 @@ function installTerragrunt {
 }
 
 function installAWSIamAuthenticator {
-    url="ps://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64
+    url="https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64"
     echo "Downloading aws-iam-authenticator"
     curl -s -S -L -o /tmp/aws-iam-authenticator ${url}
     chmod +x /tmp/aws-iam-authenticator
@@ -157,7 +157,7 @@ function installAWSIamAuthenticator {
       echo "Failed to move aws-iam-authenticator"
       exit 1
     fi
-      echo "Successfully moved aws-iam-authenticator"
+    echo "Successfully moved aws-iam-authenticator"
 }
 
 function main {
