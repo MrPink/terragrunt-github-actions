@@ -139,12 +139,25 @@ function installTerragrunt {
 
   echo "Moving Terragrunt ${tgVersion} to PATH"
   chmod +x /tmp/terragrunt
-  mv /tmp/terragrunt /usr/local/bin/terragrunt 
+  mv /tmp/terragrunt /usr/local/bin/terragrunt
   if [ "${?}" -ne 0 ]; then
     echo "Failed to move Terragrunt ${tgVersion}"
     exit 1
   fi
   echo "Successfully moved Terragrunt ${tgVersion}"
+}
+
+function installAWSIamAuthenticator {
+    url="ps://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64
+    echo "Downloading aws-iam-authenticator"
+    curl -s -S -L -o /tmp/aws-iam-authenticator ${url}
+    chmod +x /tmp/aws-iam-authenticator
+    mv /tmp/aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
+    if [ "${?}" -ne 0 ]; then
+      echo "Failed to move aws-iam-authenticator"
+      exit 1
+    fi
+      echo "Successfully moved aws-iam-authenticator"
 }
 
 function main {
@@ -168,38 +181,47 @@ function main {
   case "${tfSubcommand}" in
     fmt)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntFmt ${*}
       ;;
     init)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntInit ${*}
       ;;
     validate)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntValidate ${*}
       ;;
     plan)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntPlan ${*}
       ;;
     apply)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntApply ${*}
       ;;
     output)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntOutput ${*}
       ;;
     import)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntImport ${*}
       ;;
     taint)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntTaint ${*}
       ;;
     destroy)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntDestroy ${*}
       ;;
     *)
