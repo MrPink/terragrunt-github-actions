@@ -208,10 +208,12 @@ function main {
       ;;
     plan)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntPlan ${*}
       ;;
     apply)
       installTerragrunt
+      installAWSIamAuthenticator
       terragruntApply ${*}
       ;;
     output)
