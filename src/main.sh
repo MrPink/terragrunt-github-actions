@@ -173,6 +173,11 @@ function installKubectl {
     echo "Successfully moved Kubectl"
 }
 
+function installPython3 {
+    apk update
+    apk add python3
+}
+
 function main {
   # Source the other files to gain access to their functions
   scriptDir=$(dirname ${0})
@@ -207,11 +212,13 @@ function main {
       terragruntValidate ${*}
       ;;
     plan)
+      installPython3
       installTerragrunt
       installAWSIamAuthenticator
       terragruntPlan ${*}
       ;;
     apply)
+      installPython3
       installTerragrunt
       installAWSIamAuthenticator
       terragruntApply ${*}
